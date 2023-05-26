@@ -16,14 +16,6 @@ la lista de turno.
 Una vez hecho lo anterior, con la opcion "Guarda" podra elegir en que carpeta
 generar los partes diarios.
 
-
----------PARAMETROS---------
-
-Existen dos formas de actualizar los parámetros: Una es modificándolos directamente
-en el documento de texto "parameters.txt" ubicado en la misma carpeta donde se ubica
-el ejecutor, otra forma es modificándolo en el programa con el botón "parámetros" 
-(Se recomienda este último método).
-
 Si el programa no recibe bien los parámetros, existe un backup del mismo en la carpeta
 "resourse", se recomienda hacer una copia de este, reemplazando el documento dañado, y
 no trabajar directamente del backup.
