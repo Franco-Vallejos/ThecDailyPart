@@ -87,9 +87,6 @@ class excelWorkBook():
         self.wsListaTurno.delete_rows(listEnd, cellToDelete + 1)
         cellToDelete = 0
 
-        print('primer delete' + str(cellToDelete + 1))
-        print( self.wsListaTurno['A' + str(listEnd)].value)
-
         while (self.wsListaTurno['A' + str(listEnd)].value):
             listEnd += 1
         
@@ -114,32 +111,7 @@ class excelWorkBook():
         for i in range(13, listEnd):
             print(self.wsListaTurno['A' + str(i)].value)
 
-
-        print(" ")
-        print(" ")
-
-        print(self.tecSelfRange)
-
-        print(" ")
-        print(" ")
-
-
-        #for row in self.tecSelfRange:
-         #   print(' ', end= '\n')
-          #  for cell in row:
-           #     print(str(cell.value) + ' ', end= '')
-        print(" ")
-        print(" ")
-
         self.tecNumber = listEnd - listStart + 1
-
-        #self.tecSelfList = [[] for i in range(listEnd - listStart + 1)]
-
-        #for row in self.tecSelfList:
-        #   for i in range(32):
-         #       row.append(None)
-
-        #self.tecSelfList = [listEnd - listStart + 1][32]
 
     def dayFrom(self, daysMonth, dayFrom):
         if not dayFrom:
@@ -202,74 +174,6 @@ class excelWorkBook():
             return -1
         return pos
         
-    def celdProcess(self, cellRange, technical, row, cellColum, pos, type):
-        print("procesarCelda")
-        print(str(technical) + str(cellRange[row][cellColum].value) + "------" + str(row) + str(cellColum))
-
-        if cellColum > 0 and cellRange[row][cellColum - 1].value == 'TM' or cellRange[row][cellColum - 1].value == 'TT':
-            self.cellRangeRa[pos][0].value = "Descanso de turno"
-
-        if cellRange[row][cellColum].value == 'TM':
-            self.cellRangeRa[pos][0].value = type
-            self.cellRangeRa[pos][1].value = "12 Hs Mañana"
-                        
-        elif cellRange[row][cellColum].value == 'TT':
-            self.cellRangeRa[pos][0].value = type
-            self.cellRangeRa[pos][1].value = "12 Hs Tarde"
-                    
-        elif cellRange[row][cellColum].value == 'L':
-            self.cellRangeRa[pos][0].value = "Licencia"
-            self.cellRangeRa[pos][1].value = "Fecha de"
-            i=0
-            Ldesde = None
-            Lhasta = None
-
-            while self.cellRangeLicen[i][0].value and self.cellRangeLicen[i][0].value != technical and i<10:
-                i += 1
-
-            if self.cellRangeLicen[i][0].value == technical:
-                Ldesde = self.cellRangeLicen[i][2].value
-                Lhasta = self.cellRangeLicen[i][5].value
-
-            if Ldesde and Lhasta:
-                self.cellRangeRa[pos][2].value = str(Ldesde.strftime('%d/%m/%Y')) + " al " + str(Lhasta.strftime('%d/%m/%Y'))
-            else:
-                return False            
-
-        elif cellRange[row][cellColum].value == 'P':
-            self.cellRangeRa[pos][0].value = "Presente"
-            self.cellRangeRa[pos][1].value = "08 Hs"
-                    
-        elif cellRange[row][cellColum].value == 'C':
-            self.cellRangeRa[pos][0].value = "Comisión"
-            self.cellRangeRa[pos][1].value = "Fecha de"
-            i=0
-            Cdesde = None
-            Chasta = None
-            print("entro com")
-            while self.cellRangeCom[i][8].value and self.cellRangeCom[i][8].value!= technical and i<10:
-                i += 1
-                
-            if self.cellRangeCom[i][8].value == technical:
-                Cdesde = self.cellRangeCom[i][2].value
-                Chasta = self.cellRangeCom[i][5].value
-
-            if Cdesde and Chasta:
-                self.cellRangeRa[pos][2].value = str(Cdesde.strftime('%d/%m/%Y')) + " al " + str(Chasta.strftime('%d/%m/%Y'))
-            else:
-                return False
-
-        elif cellRange[row][cellColum].value == 'PE':
-                self.cellRangeRa[pos][1].value = "Parte de enfermo"
-                    
-        elif cellRange[row][cellColum].value == 'CU':
-                self.cellRangeRa[pos][0].value = "Curso"
-
-        elif not self.cellRangeRa[pos][0].value:
-                self.cellRangeRa[pos][0].value = "Franco" 
-
-        return True     
-
     def getValue(self):
         i = 0
         rowList = []
@@ -277,22 +181,8 @@ class excelWorkBook():
         for row in self.tecSelfRange:
             for cell in row:
                 rowList.append(cell.value)
-                #print(rowList)
             self.tecSelfList.append(rowList)
             rowList = []
-    #    for column in self.tecSelfList:
-     #       print("")
-      #      for value in column:
-       #         print(value)
-
-   # def sortRange():
-    #    minName = self.tecSelfList[0][1]
-     #   i = 0
-      #  for name in self.tecSelfList[][0]
-       #     if name < minName
-        #        for row in self.tecSelfList[]:
-          #          for value in row:
-         #               aux = value
 
     def saveInTemplate(self, dayTo):
         i=0
@@ -302,9 +192,6 @@ class excelWorkBook():
             if lastThec == self.tecSelfList[j][i]:
                 j -= 1
             for cell in row:
-                #print(cell, end='')
-                #print(j, end='')
-                #print()
                 if cell == None:
                     self.cellRangeRaTec[j][i].value = 'F'
                 else:
@@ -317,4 +204,3 @@ class excelWorkBook():
             i = 0
             j += 1
             print(str(lastThec) + '==' + str(self.tecSelfList[j][i]))
-

@@ -44,7 +44,6 @@ class windowsMaster(tk.Frame):
         self.textBox_from = tk.Entry(self, width = 4, bg = "light grey")
         self.textBox_to = tk.Entry(self, width = 4, bg = "light grey")
         self.text_default = tk.Label (self, text = "(por Defecto inicio - fin)", bg = '#2B9EFF', font = ("Helvetica", 8, "bold"))
-        self.buttom_parameters = tk.Button(self, text = "Parametros", command = self.parameters)
         self.buttom_save = tk.Button(self, text= "Guardar", command = self.save)
         self.text_rationing = tk.Label(self, text = " ", bg = '#2B9EFF', font = ("Helvetica", 8, "bold"))
 
@@ -64,7 +63,6 @@ class windowsMaster(tk.Frame):
         self.textBox_from.place(x = 180, y =296)
         self.textBox_to.place(x = 262, y =296)
         self.text_default.place(x = 300, y = 296)
-        self.buttom_parameters.place(x = 10, y = 316)
         self.buttom_save.place(x=440, y = 316)
         self.text_rationing.grid(row = 6, column = 0, sticky= tk.E)
 
@@ -100,30 +98,6 @@ class windowsMaster(tk.Frame):
         for each_item in range(len(sheets)):
             self.listSheet.insert(END, sheets[each_item])
             self.listSheet.itemconfig(each_item, bg = "#B9FEFF" if each_item % 2 == 0 else "#72EAFF")
-
-    def parameters(self):
-        self.parWindow = parWindow()
-        self.parWindow.grab_set()
-        self.parWindow.protocol("WM_DELETE_WINDOW", lambda : closeWindow(self.parWindow, self))
-        self.parWindow.resizable(0,0)
-        self.parWindow['bg'] = '#2B9EFF'
-
-        if self.eanaIcon:
-            self.parWindow.wm_iconphoto(False, self.eanaIcon)
-
-        try:
-            with open("parameters.txt") as archivo:
-                string = archivo.readlines()
-        except:
-            messagebox.showerror('Error', 'Error al leer el archivo "Parameters"')
-
-        tecRx = int(string[0][4:len(string[0])])
-        tecSala = int(string[1][6:len(string[1])])
-        tecReava = int(string[2][10:len(string[2])])
-        tecTotales = int(string[3][9:len(string[3])])
-
-        self.parWindow.initParWindow(tecRx, tecSala, tecReava, tecTotales, self)
-        self.parWindow.placeParWindow()
 
     def save(self):
         try:

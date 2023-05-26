@@ -1,4 +1,0 @@
-Rx: 7
-Sala: 8
-Reava/tx: 5
-Totales: 19
